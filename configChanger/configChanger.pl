@@ -2,7 +2,6 @@ package configChanger;
 
 use encoding 'utf8';
 use Log qw(message);
-use Data::Dumper;
 
 Plugins::register("configChanger", "altera arquivos de configuração", \&unload);
 
@@ -12,7 +11,6 @@ my $cmd = Commands::register(
 
 sub changeConfig {
 	my (undef, $args) = @_;
-	my %fileHash;
 
 	$baseControlFolder = $Settings::controlFolders[0];
 	$pluginFolderInControl = File::Spec->catdir($baseControlFolder, $args);
@@ -27,8 +25,8 @@ sub changeConfig {
 }
 
 sub loadFiles {
-
 	my ($pluginFolderInControl, @fileList) = @_;
+	my %fileHash;
 
 	foreach my $file (@{$Settings::files->getItems}) {
 		next if ($file =~ /^\./);
